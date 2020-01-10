@@ -37,21 +37,65 @@ var notes = [
 // =============================================================
 
 // Basic route that sends the user first to the AJAX Page
-app.get("/*", function(req, res) {
-  //Should return the notes.html file.
-  res.sendFile(path.join(__dirname, "index.html"));
-});
+
 
 app.get("/notes", function(req, res) {
-  //Should return the index.html file
-  res.sendFile(path.join(__dirname, "notes.html"));
+  res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
 
 // Displays all characters
 app.get("/api/notes", function(req, res) {
   ///Should read the db.json file and return all saved notes as JSON.
-  return res.json(characters);
+  var notes = fs.readFile("./db/db.json",(error,data)=>{
+    console.log("inside readfile")
+    if (error) {
+      return console.log(error);
+    }
+  
+    console.log(JSON.parse(data));
+    return res.json(JSON.parse(data))
+  })
+  //return res.json(characters);
 });
+
+app.get("/*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/index.html"));
+});
+
+// fs.readFile("data.csv", "utf8", function(error, data) {
+
+//   if (error) {
+//     return console.log(error);
+//   }
+
+//   console.log(data);
+
+// })
+
+//failed attemp to make it fancy
+// app.get("/:first/:second",function (req,res) {
+//   var first = req.params.first;
+//   var second = req.params.second;
+//   console.log(first)
+//   console.log(second)
+
+//   switch (first) {
+//     case "notes":
+//       res.sendFile(path.join(_dirname,"./public/notes.html"))
+//       break;
+//     case "api":
+//       if(second === "notes"){
+//         console.log(notes)
+//       }
+//       else{
+//         console.log("wrong path given")
+//       }
+//       break;
+//     default:
+//       // Handle anything that isn't specified
+//       res.sendFile(path.join(_dirpath,"./public/index.html"))
+//   } 
+// })
 
 // Create New Characters - takes in JSON input
 app.post("/api/notes", function(req, res) {
@@ -60,17 +104,17 @@ app.post("/api/notes", function(req, res) {
 
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body parsing middleware
-  var newCharacter = req.body;
+  //var newCharacter = req.body;
 
   // Using a RegEx Pattern to remove spaces from newCharacter
   // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-  newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
+  //newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
 
-  console.log(newCharacter);
+  //console.log(newCharacter);
 
-  characters.push(newCharacter);
+  //characters.push(newCharacter);
 
-  res.json(newCharacter);
+  //res.json(newCharacter);
 });
 
 ///DELETE /api/notes/:id - Should recieve a query paramter containing the id of a 
