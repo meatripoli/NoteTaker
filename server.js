@@ -70,7 +70,8 @@ app.post("/api/notes", function(req, res) {
   var newNote = req.body;
   var newID = createID();
   newNote.id = newID;
-  console.log(newNote)
+  console.log(newNote);
+  //console.log(JSON.parse(data))
   // // fs.readFile("./db/db.json",(error,data)=>{
   // //   if (error) {
   // //     console.log("inside error if")
@@ -104,6 +105,28 @@ function createID(){
   return Math.random().toString(36).substr(2, 9)
 };
 
+function addNote(){
+  var notes;
+  var newnote={ title: 'test1', body: 'test test', id: 'grjzya7n4' }
+  fs.readFile("./db/db.json",(error,data)=>{
+    if(error){
+      return console.log(error);
+    }
+    notes=JSON.parse(data);
+    notes.push(newnote)
+    console.log(notes)
+    let temp = JSON.stringify(notes);
+    fs.writeFile("./db/db1.json",temp,(error)=>{
+      if(error){
+        return console.log(error);
+      }
+      
+      console.log("Success!")
+    })
+  })
+  
+}
+addNote()
 // app.post("/api/notes", function(req, res) {
 //   ///POST /api/notes - Should recieve a new note to save on the request body, 
 //   //add it to the db.json file, and then return the new note to the client.
