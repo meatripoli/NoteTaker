@@ -65,26 +65,27 @@ app.get("/*", function(req, res) {
 // })
 
 // Create New Note - takes in JSON input
-app.post("./api/notes", function(req, res) {
+app.post("/api/notes", function(req, res) {
+  console.log("server side inside POST")
   var newNote = req.body;
   var newID = createID();
   newNote.id = newID;
   console.log(newNote)
-  // fs.readFile("./db/db.json",(error,data)=>{
-  //   if (error) {
-  //     console.log("inside error if")
-  //     return console.log(error);
-  //   }
-  //   console.log(JSON.parse(data));
-  //   // notes = JSON.parse(data)
-  //   // notes.push(newNote);
-  //   // console.log(notes)
-  // })
-  // //console.log(newCharacter);
+  // // fs.readFile("./db/db.json",(error,data)=>{
+  // //   if (error) {
+  // //     console.log("inside error if")
+  // //     return console.log(error);
+  // //   }
+  // //   console.log(JSON.parse(data));
+  // //   // notes = JSON.parse(data)
+  // //   // notes.push(newNote);
+  // //   // console.log(notes)
+  // // })
+  // // //console.log(newCharacter);
   
-  // //characters.push(newCharacter);
-  // // console.log(notes);
-  //res.json(notes);
+  // // //characters.push(newCharacter);
+  // // // console.log(notes);
+  res.json(newNote);
 });
 
 ///DELETE /api/notes/:id - Should recieve a query paramter containing the id of a 
