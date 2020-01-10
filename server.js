@@ -22,6 +22,9 @@ app.use(express.json());
 app.get("/notes", function(req, res) {
   res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
+app.get("/notes.html", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/notes.html"));
+});
 
 // Displays all characters
 app.get("/api/notes", function(req, res) {
@@ -72,21 +75,6 @@ app.post("/api/notes", function(req, res) {
   newNote.id = newID;
   console.log(newNote);
   addNote(newNote);
-  //console.log(JSON.parse(data))
-  // // fs.readFile("./db/db.json",(error,data)=>{
-  // //   if (error) {
-  // //     console.log("inside error if")
-  // //     return console.log(error);
-  // //   }
-  // //   console.log(JSON.parse(data));
-  // //   // notes = JSON.parse(data)
-  // //   // notes.push(newNote);
-  // //   // console.log(notes)
-  // // })
-  // // //console.log(newCharacter);
-  
-  // // //characters.push(newCharacter);
-  // // // console.log(notes);
   res.json(newNote);
 });
 
@@ -125,45 +113,3 @@ function addNote(newnote){
   })
   
 }
-
-// app.post("/api/notes", function(req, res) {
-//   ///POST /api/notes - Should recieve a new note to save on the request body, 
-//   //add it to the db.json file, and then return the new note to the client.
-
-//   // req.body hosts is equal to the JSON post sent from the user
-//   // This works because of our body parsing middleware
-//   var newNote = req.body;
-//   var newID = createID();
-//   newNote.id = newID;
-//   console.log(newNote)
-//   // Using a RegEx Pattern to remove spaces from newCharacter
-//   // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-//   //newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
-//   fs.readFile("./db/db.json",(error,data)=>{
-//     if (error) {
-//       return console.log(error);
-//     }
-//     console.log(JSON.parse(data));
-//     // notes = JSON.parse(data)
-//     // console.log(notes);
-//     // notes.push(newNote);
-//     // console.log(notes);
-//     // fs.writeFile("./db/db.json",notes,(err)=>{
-//     //   if(err){return console.log(err);}
-//     //   console.log("Success!")
-      
-//     // })
-//     //res.json(notes);  
-    
-//   })
-//   // fs.writeFile("log.txt", process.argv[2], function(err) {
-
-//   //   if (err) {
-//   //     return console.log(err);
-//   //   }
-  
-//   //   console.log("Success!");
-  
-//   // });
-  
-// });
